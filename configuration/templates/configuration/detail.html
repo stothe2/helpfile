@@ -1,0 +1,31 @@
+{% extends "configuration/base.html" %}
+
+{% block title %}
+<h2 class="text-center">Helpfile</h1>
+{% endblock %}
+
+{% block content %}
+<table class="table">
+	<tr>
+		<th bgcolor="EBF0FA"><font color="#5C85D6">Item Name</th>
+		<th bgcolor="EBF0FA"><font color="#5C85D6">Feature Classification</th>
+		<th bgcolor="EBF0FA"><font color="#5C85D6">Settings</th>
+		<th bgcolor="EBF0FA"><font color="#5C85D6">Comments</th>
+	</tr>
+	<tr>
+		<td rowspan={{ countStr }}>{{ item.item_name }}</td>
+		<td rowspan={{ countStr }}>{{ item.feature }}</td>
+		<td>{{ firstSet }}</td>
+		<td>{{ firstCom }}</td>
+	</tr>
+	{% if other %}
+		{% for i, j in other %}
+			<tr>
+				<td>{{ i }}</td>
+				<td>{{ j }}</td>
+			</tr>
+		{% endfor %}
+	{% endif %}
+</table>
+<p>...</p>
+{% endblock %}
