@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="{{ STATIC_URL }}twitter_bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" href="{{ STATIC_URL }}configuration/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                {% block title %}{% endblock %}
+            </div>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="{{ STATIC_URL }}twitter_bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
