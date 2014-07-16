@@ -1,0 +1,17 @@
+{% extends "configuration/base.html" %}
+
+{% block title %}
+<h2 class="text-center">Helpfile <small>APM Controls Index</small></h2>
+{% endblock %}
+
+{% block content %}
+{% if apmcontrols_list %}
+	<ol>
+	{% for item in apmcontrols_list %}
+		<li><a href="/configuration/{{ item.id }}/">{{ item.item_name }}</li>
+	{% endfor %}
+	</ol>
+{% else %}
+	<p>No options are available.</p>
+{% endif %}
+{% endblock %}
