@@ -1,25 +1,28 @@
 {% extends "configuration/base.html" %}
+{% load configuration_extras %}
 
 {% block title %}
-<h2 class="text-center">Helpfile</h1>
+<h2 class="text-center">Helpfile <small>{{ model_name }} Controls</small></h2>
 {% endblock %}
 
+<!-- bgcolor="EBF0FA -->
 {% block content %}
-<table class="table">
-	<tr>
-		<th bgcolor="EBF0FA"><font color="#5C85D6">Item Name</th>
-		<th bgcolor="EBF0FA"><font color="#5C85D6">Feature Classification</th>
-		<th bgcolor="EBF0FA"><font color="#5C85D6">Settings</th>
-		<th bgcolor="EBF0FA"><font color="#5C85D6">Comments</th>
+<table class="table table-bordered">
+	<tr class="active">
+		<th class="text-center"><font color="#5C85D6">Item Name</th>
+		<th class="text-center"><font color="#5C85D6">Feature Classification</th>
+		<th class="text-center"><font color="#5C85D6">Settings</th>
+		<th class="text-center"><font color="#5C85D6">Comments</th>
 	</tr>
 	<tr>
-		<td rowspan={{ countStr }}>{{ item.item_name }}</td>
-		<td rowspan={{ countStr }}>{{ item.feature }}</td>
-		<td>{{ firstSet }}</td>
-		<td>{{ firstCom }}</td>
+		<td rowspan={{ object.settings|get_count }}>{{ object.item_name }}</td>
+		<td rowspan={{ object.settings|get_count }}>{{ object.feature }}</td>
+		<td>{{ object.settings|get_first }}</td>
+		<td>{{ object.comments|get_first }}</td>
 	</tr>
-	{% if other %}
-		{% for i, j in other %}
+	{% get_combine_list object.settings object.comments as combined %}
+	{% if combined %}
+		{% for i, j in combined %}
 			<tr>
 				<td>{{ i }}</td>
 				<td>{{ j }}</td>
@@ -27,5 +30,5 @@
 		{% endfor %}
 	{% endif %}
 </table>
-<p>...</p>
+<p>{{ object.additional_comments|linebreaksbr }}</p>
 {% endblock %}
