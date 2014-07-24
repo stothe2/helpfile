@@ -1,0 +1,30 @@
+{% extends "configuration/base.html" %}
+
+{% block title %}
+<h2 class="text-center">Helpfile</h2>
+{% endblock %}
+
+{% block content %}
+<ul class="list-group">
+	<li>APM Controls</li>
+		<ul>
+			<li><a href="/configuration/APM/">List</a></li>
+			<li><a href="/configuration/APM/table/">Table</a></li>
+		</ul>
+	<li>PM Controls</li>
+		<ul>
+			<li><a href="/configuration/PM/">List</a></li>
+			<li><a href="/configuration/PM/table/">Table</a></li>
+		</ul>
+	<li>TM Controls</li>
+		<ul>
+			<li><a href="/configuration/TM/">List</a></li>
+			<li><a href="#">Table</a></li>
+		</ul>
+	<li>UI Controls</li>
+		<ul>
+			<li><a href="/configuration/UI/">List</a></li>
+			<li><a href="#">Table</a></li>
+		</ul>
+</ul>
+{% endblock %}
