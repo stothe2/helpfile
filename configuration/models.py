@@ -6,7 +6,7 @@ class Controls(models.Model):
 	feature = models.TextField(max_length=200)
 	settings = models.TextField()
 	comments = models.TextField(blank=True)
-	#additional_comments = models.TextField(blank=True)
+	additional_comments = models.TextField(blank=True)
 
 	def __unicode__(self):
 		return self.item_name
@@ -21,4 +21,10 @@ class APM(Controls):
 	pass
 
 class PM(Controls):
+	pass
+
+class TM(Controls):
+	pass
+
+class UI(Controls):
 	pass
