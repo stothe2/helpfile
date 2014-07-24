@@ -1,14 +1,14 @@
 {% extends "configuration/base.html" %}
 
 {% block title %}
-<h2 class="text-center">Helpfile <small>APM Controls Index</small></h2>
+<h2 class="text-center">Helpfile <small>{{ model_name }} Controls</small></h2>
 {% endblock %}
 
 {% block content %}
-{% if apmcontrols_list %}
+{% if object_list %}
 	<ol>
-	{% for item in apmcontrols_list %}
-		<li><a href="/configuration/{{ item.id }}/">{{ item.item_name }}</li>
+	{% for item in object_list %}
+		<li><a href="/configuration/{{ model_name }}/{{ item.id }}/">{{ item.item_name }}</li>
 	{% endfor %}
 	</ol>
 {% else %}
