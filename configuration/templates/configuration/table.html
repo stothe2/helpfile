@@ -1,0 +1,40 @@
+{% extends "configuration/base.html" %}
+{% load configuration_extras %}
+
+{% block title %}
+<h2 class="text-center">Helpfile <small>{{ object }} Controls</small></h2>
+{% endblock %}
+
+{% block content %}
+{% if object_list %}
+	{% for item in object_list %}
+		<table class="table table-bordered">
+			<tr class="active">
+				<th class="text-center"><font color="#5C85D6">Item Name</th>
+				<th class="text-center"><font color="#5C85D6">Feature Classification</th>
+				<th class="text-center"><font color="#5C85D6">Settings</th>
+				<th class="text-center"><font color="#5C85D6">Comments</th>
+			</tr>
+			<tr>
+				<td rowspan={{ item.settings|get_count }}>{{ item.item_name }}</td>
+				<td rowspan={{ item.settings|get_count }}>{{ item.feature }}</td>
+				<td>{{ item.settings|get_first }}</td>
+				<td>{{ item.comments|get_first }}</td>
+			</tr>
+			{% get_combine_list item.settings item.comments as combined %}
+			{% if combined %}
+				{% for i, j in combined %}
+					<tr>
+						<td>{{ i }}</td>
+						<td>{{ j }}</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+		</table>
+		<p>{{ item.additional_comments|linebreaksbr }}</p>
+		<br><br>
+	{% endfor %}
+{% else %}
+	<p>No options are available.</p>
+{% endif %}
+{% endblock %}
