@@ -2,33 +2,42 @@
 {% load configuration_extras %}
 
 {% block title %}
-<h2 class="text-center">Helpfile <small>{{ model_name }} Controls</small></h2>
+{% if matching_items|length > 1 %}
+	<h2 class="text-center">{{ model_name }}: {{ object.item_name|get_unique_name }}</h2>
+{% else %}
+	<h2 class="text-center">{{ model_name }}: {{ object.item_name }}</h2>
+{% endif %}
 {% endblock %}
 
 <!-- bgcolor="EBF0FA -->
 {% block content %}
-<table class="table table-bordered">
-	<tr class="active">
-		<th class="text-center"><font color="#5C85D6">Item Name</th>
-		<th class="text-center"><font color="#5C85D6">Feature Classification</th>
-		<th class="text-center"><font color="#5C85D6">Settings</th>
-		<th class="text-center"><font color="#5C85D6">Comments</th>
-	</tr>
-	<tr>
-		<td rowspan={{ object.settings|get_count }}>{{ object.item_name }}</td>
-		<td rowspan={{ object.settings|get_count }}>{{ object.feature }}</td>
-		<td>{{ object.settings|get_first }}</td>
-		<td>{{ object.comments|get_first }}</td>
-	</tr>
-	{% get_combine_list object.settings object.comments as combined %}
-	{% if combined %}
-		{% for i, j in combined %}
-			<tr>
-				<td>{{ i }}</td>
-				<td>{{ j }}</td>
-			</tr>
-		{% endfor %}
-	{% endif %}
-</table>
-<p>{{ object.additional_comments|linebreaksbr }}</p>
+
+{% for item in matching_items %}
+	<table class="table table-bordered">
+		<tr class="active">
+			<th class="text-center"><font color="#5C85D6">Item Name</th>
+			<th class="text-center"><font color="#5C85D6">Feature Classification</th>
+			<th class="text-center"><font color="#5C85D6">Settings</th>
+			<th class="text-center"><font color="#5C85D6">Comments</th>
+		</tr>
+		<tr>
+			<td rowspan={{ item.settings|get_count }} class="text-center" style="vertical-align: middle">{{ item.item_name|safe }}</td>
+			<td rowspan={{ item.settings|get_count }} class="text-center" style="vertical-align: middle">{{ item.feature|safe }}</td>
+			<td>{{ item.settings|get_first|safe }}</td>
+			<td>{{ item.comments|get_first|safe }}</td>
+		</tr>
+		{% get_combine_list item.settings item.comments as combined %}
+		{% if combined %}
+			{% for i, j in combined %}
+				<tr>
+					<td>{{ i|safe }}</td>
+					<td>{{ j|safe }}</td>
+				</tr>
+			{% endfor %}
+		{% endif %}
+	</table>
+	<p>{{ item.additional_comments|safe }}</p>
+	<br><br><br>
+{% endfor %}
+
 {% endblock %}
