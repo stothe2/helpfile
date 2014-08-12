@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+import os
+from django.conf import settings
 
 from configuration import views
 
@@ -17,6 +19,7 @@ urlpatterns = patterns('',
 	url(r'^PM/table/$', views.PMTableView.as_view(), name='table'),
 	url(r'^TM/table/$', views.TMTableView.as_view(), name='table'),
 	url(r'^UI/table/$', views.UITableView.as_view(), name='table'),
+	url(r'^(?P<path>.*)/$', 'django.views.static.serve', {'document_root': os.path.dirname(settings.MEDIA_ROOT)}),
 )
 
 urlpatterns += staticfiles_urlpatterns()
