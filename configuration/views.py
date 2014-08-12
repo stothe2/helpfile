@@ -51,6 +51,7 @@ class APMDetailView(generic.DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(APMDetailView, self).get_context_data(**kwargs)
 		context['model_name'] = 'APM'
+		context['matching_items'] = APM.objects.filter(item_name__startswith=self.get_object().item_name.split('(')[0])
 		return context
 
 class PMDetailView(generic.DetailView):
@@ -60,6 +61,7 @@ class PMDetailView(generic.DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(PMDetailView, self).get_context_data(**kwargs)
 		context['model_name'] = 'PM'
+		context['matching_items'] = PM.objects.filter(item_name__startswith=self.get_object().item_name.split('(')[0])
 		return context
 
 class TMDetailView(generic.DetailView):
@@ -69,6 +71,7 @@ class TMDetailView(generic.DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(TMDetailView, self).get_context_data(**kwargs)
 		context['model_name'] = 'TM'
+		context['matching_items'] = TM.objects.filter(item_name__startswith=self.get_object().item_name.split()[0])
 		return context
 
 class UIDetailView(generic.DetailView):
@@ -78,19 +81,8 @@ class UIDetailView(generic.DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(UIDetailView, self).get_context_data(**kwargs)
 		context['model_name'] = 'UI'
+		context['matching_items'] = UI.objects.filter(item_name__startswith=self.get_object().item_name.split()[0])
 		return context
-
-'''
-def UIDetail(request, ui_id):
-	item = APM.objects.get(id=ui_id)
-	template = loader.get_template('configuration/detail.html')
-	context = RequestContext(request, {
-		'ui_id': ui_id,
-		'item': item,
-		'model_name': 'UI',
-		})
-	return HttpResponse(template.render(context))
-'''
 
 ##
 #  Table Views
